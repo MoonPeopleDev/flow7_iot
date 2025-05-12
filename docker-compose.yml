@@ -6,9 +6,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: rails_api
-    env_file: .env              # вынесите секреты сюда
+    env_file: .env
+
     environment:
-      PORT: "3003"
+      PORT: "3000"
     depends_on:
       redis:
         condition: service_started
@@ -17,7 +18,7 @@ services:
       clickhouse:
         condition: service_started
     ports:
-      - "3003:3003"             # уберите, если будете проксировать через nginx/traefik
+      - "3000:3000"             # уберите, если будете проксировать через nginx/traefik
 #    command: >
 #      bash -c "
 #        bundle exec rails db:prepare &&
