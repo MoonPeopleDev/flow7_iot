@@ -36,8 +36,8 @@ services:
     container_name: redis
     volumes:
       - redis_data:/data
-    ports:
-      - "6379:6379"
+#    ports:
+#      - "6379:6379"
     networks:
       - backend
 
@@ -55,8 +55,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    ports:
-      - "5432:5432"
+#    ports:
+#      - "5432:5432"
     networks:
       - backend
 
@@ -69,9 +69,9 @@ services:
       nofile:
         soft: 262144
         hard: 262144
-    ports:
-      - "8123:8123"                # HTTP интерфейс
-      - "9000:9000"                # Native TCP
+#    ports:
+#      - "8123:8123"                # HTTP интерфейс
+#      - "9000:9000"                # Native TCP
     networks:
       - backend
 
