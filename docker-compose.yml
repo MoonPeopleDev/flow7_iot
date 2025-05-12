@@ -13,7 +13,7 @@ services:
       CLICKHOUSE_URL: http://clickhouse:8123
       RAILS_ENV: production
       # Puma будет слушать 0.0.0.0, чтобы контейнер принимал запросы извне
-      PORT: "3000"
+      PORT: "3003"
     depends_on:
       redis:
         condition: service_started
@@ -22,7 +22,7 @@ services:
       clickhouse:
         condition: service_started
     ports:
-      - "3000:3000"             # уберите, если будете проксировать через nginx/traefik
+      - "3003:3003"             # уберите, если будете проксировать через nginx/traefik
     command: >
       bash -c "
         bundle exec rails db:prepare &&
