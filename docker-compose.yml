@@ -8,11 +8,6 @@ services:
     container_name: rails_api
     env_file: .env              # вынесите секреты сюда
     environment:
-      # пример: DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
-      REDIS_URL: redis://redis:6379/1
-      CLICKHOUSE_URL: http://clickhouse:8123
-      RAILS_ENV: production
-      # Puma будет слушать 0.0.0.0, чтобы контейнер принимал запросы извне
       PORT: "3003"
     depends_on:
       redis:
@@ -23,11 +18,11 @@ services:
         condition: service_started
     ports:
       - "3003:3003"             # уберите, если будете проксировать через nginx/traefik
-    command: >
-      bash -c "
-        bundle exec rails db:prepare &&
-        bundle exec puma -C config/puma.rb
-      "
+#    command: >
+#      bash -c "
+#        bundle exec rails db:prepare &&
+#        bundle exec puma -C config/puma.rb
+#      "
     networks:
       - backend
 
