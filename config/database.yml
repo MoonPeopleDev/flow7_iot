@@ -33,6 +33,6 @@ production:
     host: <%= ENV.fetch("CLICKHOUSE_HOST") %>
     port: 8123
     username: <%= ENV.fetch("CLICKHOUSE_USERNAME") %>
-    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") { '' } %>
     timeout: 5000
     migrations_paths: db/migrate_clickhouse
