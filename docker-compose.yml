@@ -47,9 +47,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: your_db_name
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: flow7_iot
+      POSTGRES_USER: flow7_iot
+      POSTGRES_PASSWORD: flow7_iot
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s

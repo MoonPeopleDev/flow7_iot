@@ -3,6 +3,8 @@ development:
     adapter: postgresql
     encoding: unicode
     database: <%= ENV.fetch("POSTGRESQL_DATABASE") %>
+    username: <%= ENV.fetch("CLICKHOUSE_USERNAME") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     host: <%= ENV.fetch("POSTGRESQL_HOST") %>
   clickhouse:
@@ -25,6 +27,8 @@ production:
     adapter: postgresql
     encoding: unicode
     database: <%= ENV.fetch("POSTGRESQL_DATABASE") %>
+    username: <%= ENV.fetch("CLICKHOUSE_USERNAME") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     host: <%= ENV.fetch("POSTGRESQL_HOST") %>
   clickhouse:
