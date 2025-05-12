@@ -1,34 +1,38 @@
-
-default: &default
-  adapter: postgresql
-  encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-
 development:
   primary:
-    <<: *default
-    database: flow7_system_backend_development
+    adapter: postgresql
+    encoding: unicode
+    database: <%= ENV.fetch("POSTGRESQL_DATABASE") %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    host: <%= ENV.fetch("POSTGRESQL_HOST") %>
   clickhouse:
     adapter: clickhouse
-    database: myapp_clickhouse
-    host: localhost
+    database: <%= ENV.fetch("CLICKHOUSE_DATABASE") %>
+    host: <%= ENV.fetch("CLICKHOUSE_HOST") %>
     port: 8123
-    username: "default"
-    password: ""
+    username: <%= ENV.fetch("CLICKHOUSE_USERNAME") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") %>
     timeout: 5000
     migrations_paths: db/migrate_clickhouse
 
 
 test:
-  <<: *default
   database: flow7_system_backend_test
 
 
 production:
-  <<: *default
-  database: flow7_system_backend_production
-  username: flow7_system_backend
-  password: <%= ENV["FLOW7_SYSTEM_BACKEND_DATABASE_PASSWORD"] %>
+  primary:
+    adapter: postgresql
+    encoding: unicode
+    database: <%= ENV.fetch("POSTGRESQL_DATABASE") %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    host: <%= ENV.fetch("POSTGRESQL_HOST") %>
+  clickhouse:
+    adapter: clickhouse
+    database: <%= ENV.fetch("CLICKHOUSE_DATABASE") %>
+    host: <%= ENV.fetch("CLICKHOUSE_HOST") %>
+    port: 8123
+    username: <%= ENV.fetch("CLICKHOUSE_USERNAME") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") %>
+    timeout: 5000
+    migrations_paths: db/migrate_clickhouse
