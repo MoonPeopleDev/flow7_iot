@@ -17,7 +17,7 @@ services:
     depends_on:
       redis:
         condition: service_started
-      postgresql:
+      postgres:
         condition: service_healthy
       clickhouse:
         condition: service_started
@@ -41,15 +41,12 @@ services:
     networks:
       - backend
 
-  postgresql:
+  postgres:
     image: postgres:15-alpine
-    container_name: postgresql
+    container_name: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: flow7_iot
-      POSTGRES_USER: flow7_iot
-      POSTGRES_PASSWORD: flow7_iot
+    env_file: .env
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
@@ -63,6 +60,7 @@ services:
   clickhouse:
     image: clickhouse/clickhouse-server:24.4
     container_name: clickhouse
+    env_file: .env
     volumes:
       - clickhouse_data:/var/lib/clickhouse
     ulimits:                       # ClickHouse требует увеличенных лимитов

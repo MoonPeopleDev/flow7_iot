@@ -8,6 +8,6 @@ class Devices::SensorSerializer
              :value_factor,
              :power_factor
 
-  belongs_to :sensor_type,
-             :hardware_item_id
+  belongs_to :sensor_type
+  belongs_to :hardware_item_id
 end

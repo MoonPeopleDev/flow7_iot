@@ -2,18 +2,18 @@ development:
   primary:
     adapter: postgresql
     encoding: unicode
-    database: <%= ENV.fetch("POSTGRESQL_DATABASE") %>
-    username: <%= ENV.fetch("POSTGRESQL_USERNAME") %>
-    password: <%= ENV.fetch("POSTGRESQL_PASSWORD") %>
+    database: <%= ENV.fetch("POSTGRES_APP_DB") %>
+    username: <%= ENV.fetch("POSTGRES_USER") %>
+    password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    host: <%= ENV.fetch("POSTGRESQL_HOST") %>
+    host: <%= ENV.fetch("POSTGRES_HOST") %>
   clickhouse:
     adapter: clickhouse
-    database: <%= ENV.fetch("CLICKHOUSE_DATABASE") %>
+    database: <%= ENV.fetch("CLICKHOUSE_APP_DB") %>
     host: <%= ENV.fetch("CLICKHOUSE_HOST") %>
     port: 8123
-    username: <%= ENV.fetch("CLICKHOUSE_USERNAME") %>
-    password: <%#= ENV.fetch("CLICKHOUSE_PASSWORD") { '' } %>
+    username: <%= ENV.fetch("CLICKHOUSE_USER") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") { '' }%>
     timeout: 5000
     migrations_paths: db/migrate_clickhouse
 
@@ -26,17 +26,17 @@ production:
   primary:
     adapter: postgresql
     encoding: unicode
-    database: <%= ENV.fetch("POSTGRESQL_DATABASE") %>
-    username: <%= ENV.fetch("POSTGRESQL_USERNAME") %>
-    password: <%= ENV.fetch("POSTGRESQL_PASSWORD") %>
+    database: <%= ENV.fetch("POSTGRES_DB") %>
+    username: <%= ENV.fetch("POSTGRES_USER") %>
+    password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    host: <%= ENV.fetch("POSTGRESQL_HOST") %>
+    host: <%= ENV.fetch("POSTGRES_HOST") %>
   clickhouse:
     adapter: clickhouse
-    database: <%= ENV.fetch("CLICKHOUSE_DATABASE") %>
+    database: <%= ENV.fetch("CLICKHOUSE_APP_DB") %>
     host: <%= ENV.fetch("CLICKHOUSE_HOST") %>
     port: 8123
-    username: <%= ENV.fetch("CLICKHOUSE_USERNAME") %>
-    password: <%#= ENV.fetch("CLICKHOUSE_PASSWORD") { '' } %>
+    username: <%= ENV.fetch("CLICKHOUSE_USER") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") { '' } %>
     timeout: 5000
     migrations_paths: db/migrate_clickhouse
