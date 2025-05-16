@@ -10,7 +10,7 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
       @device.aes_key = SecureRandom.random_bytes(16)
       @device.save!
       key_base64 = Base64.strict_encode64(@device.aes_key)
-      render plain: "key:#{key_base64}"
+      render plain: "K:#{key_base64}"
       return
     end
 
