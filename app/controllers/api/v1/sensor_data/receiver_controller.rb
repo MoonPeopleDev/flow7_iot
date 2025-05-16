@@ -9,12 +9,13 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
     unless @device.aes_key.present?
       @device.aes_key = SecureRandom.random_bytes(16)
       @device.save!
-      key_base64 = Base64.strict_encode64(aes_key)
+      key_base64 = Base64.strict_encode64(@device.aes_key)
       render plain: "key:#{key_base64}"
       return
     end
 
     iv_base64 = request.headers["X-Nonce"]
+    pp "iv_base64: #{iv_base64}"
     unless iv_base64.present?
       render plain: "Nonce not found", status: 400
       return
