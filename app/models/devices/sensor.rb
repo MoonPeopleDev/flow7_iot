@@ -9,7 +9,7 @@ class Devices::Sensor < ApplicationRecord
   validates :name, presence: true
 
   validate do |item|
-    if item.factor.present?
+    if item.value_factor.present?
       if item.factor.to_s =~ /\A[0-9\-+*\/V().]+\z/
         formula = item.factor.to_s.gsub('V', 1.to_s)
         begin
