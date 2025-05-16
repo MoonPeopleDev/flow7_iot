@@ -27,12 +27,16 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
       cipher.decrypt
       cipher.key = @device.aes_key
       cipher.iv = iv
-      # cipher.padding = 0
+      cipher.padding = 0
 
-      encrypted_data = request.raw_post.b
+      request.raw_post.force_encoding('BINARY')
+      encrypted_data = request.raw_post
       plain = (cipher.update(encrypted_data) + cipher.final).strip
     rescue => e
-      log_error("error decrypt data", e)
+      Rails.logger.error("error decrypt data: #{e.class.to_s}")
+      Rails.logger.error("error decrypt data: #{e.message}")
+      Rails.logger.error("error decrypt data: #{e.backtrace.join("\n")}")
+      #log_error("error decrypt data", e)
       render plain: "error decrypt data", status: 400
       return
     end
