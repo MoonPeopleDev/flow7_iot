@@ -92,6 +92,7 @@ GEM
     debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    dotenv (3.1.8)
     drb (2.2.1)
     error_highlight (0.7.0)
     erubi (1.13.1)
@@ -298,6 +299,7 @@ DEPENDENCIES
   brakeman
   clickhouse-activerecord
   debug
+  dotenv
   error_highlight (>= 0.4.0)
   jsonapi-serializer
   kaminari

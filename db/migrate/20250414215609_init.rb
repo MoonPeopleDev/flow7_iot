@@ -27,8 +27,7 @@ class Init < ActiveRecord::Migration[7.2]
       t.string :firmware_version
       t.integer :uptime, default: 0, null: false
       t.boolean :receive_data, default: true, null: false
-      t.string :aes_key
-      t.string :aes_iv
+      t.binary :aes_key
       t.timestamps
     end
 

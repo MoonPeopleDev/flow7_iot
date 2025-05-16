@@ -6,26 +6,36 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
   end
 
   def receive
-    key = @device.aes_key
-    iv = @device.aes_iv
-    if key.nil? || iv.nil?
-      process_data(request.raw_post)
-    else
-      begin
-        cipher = OpenSSL::Cipher::AES.new(128, :CBC)
-        cipher.decrypt
-        cipher.key = key
-        cipher.iv = iv
-        # cipher.padding = 0
-
-        encrypted_data = request.raw_post.b
-        plain = (cipher.update(encrypted_data) + cipher.final).strip
-      rescue => e
-        log_error("error decrypt data", e)
-        render json: { result: 'error decrypt data' }, status: 400 and return
-      end
-      process_data(plain)
+    unless @device.aes_key.present?
+      @device.aes_key = SecureRandom.random_bytes(16)
+      @device.save!
+      key_base64 = Base64.strict_encode64(key)
+      render plain: "key:#{key_base64}"
+      return
     end
+
+    iv_base64 = request.headers["X-Nonce"]
+    unless iv_base64.present?
+      render plain: "Nonce not found", status: 400
+      return
+    end
+    iv = Base64.decode64(request.headers["X-Nonce"].to_s)
+
+    begin
+      cipher = OpenSSL::Cipher::AES.new(128, :CBC)
+      cipher.decrypt
+      cipher.key = key
+      cipher.iv = iv
+      # cipher.padding = 0
+
+      encrypted_data = request.raw_post.b
+      plain = (cipher.update(encrypted_data) + cipher.final).strip
+    rescue => e
+      log_error("error decrypt data", e)
+      render plain: "error decrypt data", status: 400
+      return
+    end
+    process_data(plain)
   end
 
   private
@@ -42,7 +52,7 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
   end
 
   def find_device_hardware_item
-    serial_number = request.headers["X-Serial-Number"]
+    serial_number = request.headers["X-Device-ID"]
     @device = Devices::HardwareItem.find_by!(serial_number: serial_number)
   end
 

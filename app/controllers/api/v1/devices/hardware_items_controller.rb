@@ -13,8 +13,7 @@ class Api::V1::Devices::HardwareItemsController < Api::V1::BaseController
       :description,
       :hardware_model_id,
       :serial_number,
-      :aes_key,
-      :aes_iv
+      :aes_key
     ]
   end
 end

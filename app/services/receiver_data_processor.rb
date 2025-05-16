@@ -1,6 +1,6 @@
 class ReceiverDataProcessor
   def self.call(raw, device)
-    new(raw).process
+    new(raw, device).process
   end
 
   def initialize(raw, device)
