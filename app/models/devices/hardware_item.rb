@@ -10,5 +10,17 @@ class Devices::HardwareItem < ApplicationRecord
   private
 
 
+  def create_sensors
+    hardware_model.sensor_types.each do |sensor_type|
+      sensors.create(
+        name: sensor_type.name,
+        description: sensor_type.description,
+        sensor_type_id: sensor_type.id,
+        threshold_active: 3,
+        threshold_idle: 2,
+        threshold_shutdown: 1
+      )
+    end
+  end
 
 end
