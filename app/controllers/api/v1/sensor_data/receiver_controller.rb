@@ -25,7 +25,7 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
     begin
       cipher = OpenSSL::Cipher::AES.new(128, :CBC)
       cipher.decrypt
-      cipher.key = key
+      cipher.key = @device.aes_key
       cipher.iv = iv
       # cipher.padding = 0
 
