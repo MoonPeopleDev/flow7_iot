@@ -22,6 +22,7 @@ class SensorsData < ActiveRecord::Migration[7.2]
           threshold_shutdown Int32,
           threshold_min_nominal_value Int32,
           threshold_max_nominal_value Int32,
+          receiving_delay Int32,
           power UInt32
         ) ENGINE=ReplacingMergeTree
         PARTITION BY (toYYYYMMDD(at))
