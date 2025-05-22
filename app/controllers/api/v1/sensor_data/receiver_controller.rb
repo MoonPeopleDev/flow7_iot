@@ -35,7 +35,6 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
       Rails.logger.error("error decrypt data: #{e.class.to_s}")
       Rails.logger.error("error decrypt data: #{e.message}")
       Rails.logger.error("error decrypt data: #{e.backtrace.join("\n")}")
-      #log_error("error decrypt data", e)
       render plain: "error decrypt data", status: 400
       return
     end
@@ -50,7 +49,6 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
     if result[:success]
       render json: { result: 'ok' }, status: 200
     else
-      log_error(result[:message], result[:exception])
       render json: { result: result[:message] }, status: 400
     end
   end
@@ -58,9 +56,5 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
   def find_device_hardware_item
     serial_number = request.headers["X-Device-ID"]
     @device = Devices::HardwareItem.find_by!(serial_number: serial_number)
-  end
-
-  def log_error(message, exception = nil)
-    File.write("public/debug_parse_error.txt", "#{Time.current.to_s(:db)}\n#{message}\n#{exception&.message}")
   end
 end

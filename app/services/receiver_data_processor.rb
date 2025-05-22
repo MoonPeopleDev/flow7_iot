@@ -21,8 +21,8 @@ class ReceiverDataProcessor
     Sites::Devices::SensorValue.insert(sensor_values)
 
     success
-  rescue => e
-    error("unexpected error", e)
+  # rescue => e
+  #   error("unexpected error", e)
   end
 
   private
@@ -30,8 +30,8 @@ class ReceiverDataProcessor
   def parse_json(raw)
     return raw if raw.is_a?(Hash)
     JSON.parse(raw, symbolize_names: true)
-  rescue JSON::ParserError
-    nil
+  # rescue JSON::ParserError
+  #   nil
   end
 
   def update_device_info(data)
