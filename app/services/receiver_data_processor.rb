@@ -18,6 +18,7 @@ class ReceiverDataProcessor
     return success unless @device.receive_data
 
     sensor_values = build_sensor_values(data)
+    pp sensor_values
     SensorData::Raw.insert_all(sensor_values)
 
     success
