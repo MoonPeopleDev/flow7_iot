@@ -50,7 +50,7 @@ class Devices::Sensor < ApplicationRecord
 
   def calculate_value_factor(value)
     value = 0 if value < 0
-    return value unless value.is_a?(Numeric)
+    return 0 unless value.is_a?(Numeric)
     return value unless value_factor.present?
     value = value.to_f
     formula = value_factor.to_s.gsub('V', value.to_s)
