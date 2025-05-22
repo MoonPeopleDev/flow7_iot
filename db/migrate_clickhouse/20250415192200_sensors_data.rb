@@ -18,9 +18,10 @@ class SensorsData < ActiveRecord::Migration[7.2]
           is_shutdown UInt8,
           is_nominal_sensor_value UInt8,
           
-          idle_level Int32,
-          min_nominal_value Int32,
-          max_nominal_value Int32,
+          threshold_idle Int32,
+          threshold_shutdown Int32,
+          threshold_min_nominal_value Int32,
+          threshold_max_nominal_value Int32,
           power UInt32
         ) ENGINE=ReplacingMergeTree
         PARTITION BY (toYYYYMMDD(at))

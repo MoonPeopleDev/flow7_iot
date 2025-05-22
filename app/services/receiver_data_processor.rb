@@ -77,15 +77,15 @@ class ReceiverDataProcessor
           device_id: @device.id,
           serial_number: @device.serial_number,
           sensor_id: sensor.id,
-          idle_level: sensor.idle_level,
-          shutdown_level: sensor.shutdown_level,
+          threshold_idle: sensor.threshold_idle,
+          threshold_shutdown: sensor.threshold_shutdown,
           sensor_type_id: sensor.sensor_type_id,
           numeric_sensor_value: value_with_factor,
           raw_sensor_value: value,
           power: power,
-          is_active: (value_with_factor > sensor.idle_level ? 1 : 0),
-          is_stopped: (value_with_factor > sensor.idle_level ? 0 : 1),
-          is_shutdown: (value_with_factor >= sensor.shutdown_level ? 0 : 1),
+          is_active: (value_with_factor > sensor.threshold_idle ? 1 : 0),
+          is_stopped: (value_with_factor > sensor.threshold_idle ? 0 : 1),
+          is_shutdown: (value_with_factor >= sensor.threshold_shutdown ? 0 : 1),
           receiving_delay: delay
         }
 
