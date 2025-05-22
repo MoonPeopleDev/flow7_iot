@@ -69,7 +69,7 @@ class ReceiverDataProcessor
         sensor = sensors[key.to_s]
         next unless sensor
 
-        value_with_factor = sensor.calculate_factor(value)
+        value_with_factor = sensor.calculate_value_factor(value)
         power = sensor.calculate_power_factor(value_with_factor)
 
         entry = {
