@@ -84,7 +84,7 @@ class ReceiverDataProcessor
           raw_sensor_value: value,
           power: power,
           is_active: (value_with_factor > sensor.threshold_idle ? 1 : 0),
-          is_stopped: (value_with_factor > sensor.threshold_idle ? 0 : 1),
+          is_idle: (value_with_factor > sensor.threshold_idle ? 0 : 1),
           is_shutdown: (value_with_factor >= sensor.threshold_shutdown ? 0 : 1),
           receiving_delay: delay
         }
