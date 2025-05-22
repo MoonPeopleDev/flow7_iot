@@ -68,7 +68,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_15_192200) do
   end
 
   # TABLE: sensor_data_raw
-  # SQL: CREATE TABLE sensor_data_raw ( `at` DateTime64(3, 'UTC'), `device_id` UInt32, `serial_number` String, `sensor_id` UInt32, `sensor_type_id` UInt16, `raw_sensor_value` Int32, `numeric_sensor_value` Int32, `string_sensor_value` String, `boolean_sensor_value` UInt8, `is_active` UInt8, `is_idle` UInt8, `is_shutdown` UInt8, `is_nominal_sensor_value` UInt8, `idle_level` Int32, `min_nominal_value` Int32, `max_nominal_value` Int32, `power` UInt32 ) ENGINE = ReplacingMergeTree PARTITION BY toYYYYMMDD(at) ORDER BY (device_id, sensor_id, sensor_type_id, at) SETTINGS index_granularity = 8192
+  # SQL: CREATE TABLE sensor_data_raw ( `at` DateTime64(3, 'UTC'), `device_id` UInt32, `serial_number` String, `sensor_id` UInt32, `sensor_type_id` UInt16, `raw_sensor_value` Int32, `numeric_sensor_value` Int32, `string_sensor_value` String, `boolean_sensor_value` UInt8, `is_active` UInt8, `is_idle` UInt8, `is_shutdown` UInt8, `is_nominal_sensor_value` UInt8, `threshold_idle` Int32, `threshold_shutdown` Int32, `threshold_min_nominal_value` Int32, `threshold_max_nominal_value` Int32, `receiving_delay` Int32, `power` UInt32 ) ENGINE = ReplacingMergeTree PARTITION BY toYYYYMMDD(at) ORDER BY (device_id, sensor_id, sensor_type_id, at) SETTINGS index_granularity = 8192
   create_table "sensor_data_raw", id: false, options: "ReplacingMergeTree PARTITION BY toYYYYMMDD(at) ORDER BY (device_id, sensor_id, sensor_type_id, at) SETTINGS index_granularity = 8192", force: :cascade do |t|
     t.datetime "at", precision: nil, null: false
     t.integer "device_id", null: false
@@ -83,9 +83,11 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_15_192200) do
     t.integer "is_idle", limit: 1, null: false
     t.integer "is_shutdown", limit: 1, null: false
     t.integer "is_nominal_sensor_value", limit: 1, null: false
-    t.integer "idle_level", unsigned: false, null: false
-    t.integer "min_nominal_value", unsigned: false, null: false
-    t.integer "max_nominal_value", unsigned: false, null: false
+    t.integer "threshold_idle", unsigned: false, null: false
+    t.integer "threshold_shutdown", unsigned: false, null: false
+    t.integer "threshold_min_nominal_value", unsigned: false, null: false
+    t.integer "threshold_max_nominal_value", unsigned: false, null: false
+    t.integer "receiving_delay", unsigned: false, null: false
     t.integer "power", null: false
   end
 
