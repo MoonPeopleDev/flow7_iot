@@ -18,7 +18,7 @@ class ReceiverDataProcessor
     return success unless @device.receive_data
 
     sensor_values = build_sensor_values(data)
-    Sites::Devices::SensorValue.insert(sensor_values)
+    SensorData::Raw.insert(sensor_values)
 
     success
   # rescue => e
