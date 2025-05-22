@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :devices do
         resources :hardware_models
-        resources :hardware_items
+        resources :hardware_items do
+          put :reset_crypto, on: :member
+        end
         resources :sensors
         resources :sensor_types
       end

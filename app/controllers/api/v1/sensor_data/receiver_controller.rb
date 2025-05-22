@@ -15,7 +15,6 @@ class Api::V1::SensorData::ReceiverController < Api::V1::BaseController
     end
 
     iv_base64 = request.headers["X-Nonce"]
-    pp "iv_base64: #{iv_base64}"
     unless iv_base64.present?
       render plain: "Nonce not found", status: 400
       return

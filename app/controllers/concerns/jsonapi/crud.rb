@@ -22,7 +22,6 @@ module Jsonapi::Crud
   end
 
   def create
-    pp resource_params
     @resource = resource_class.new(resource_params)
     if @resource.save
       render json: serializer.new(@resource), status: :created
