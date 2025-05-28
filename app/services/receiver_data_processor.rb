@@ -92,7 +92,7 @@ class ReceiverDataProcessor
 
         if key == :rfid_hold
           entry[:string_sensor_value] = item[:rfid]
-          entry[:bool_sensor_value] = value
+          entry[:boolean_sensor_value] = value
         end
 
         results << entry
