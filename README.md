@@ -22,3 +22,4 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+See [docs/api.md](docs/api.md) for API documentation.
