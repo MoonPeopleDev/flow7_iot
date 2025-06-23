@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_14_215609) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_28_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,10 +23,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_14_215609) do
     t.string "firmware_version"
     t.integer "uptime", default: 0, null: false
     t.boolean "receive_data", default: true, null: false
-    t.string "aes_key"
-    t.string "aes_iv"
+    t.binary "aes_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remote_model_name"
     t.index ["hardware_model_id"], name: "index_devices_hardware_items_on_hardware_model_id"
   end
 
@@ -61,15 +61,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_14_215609) do
     t.string "description"
     t.bigint "sensor_type_id", null: false
     t.bigint "hardware_item_id", null: false
-    t.integer "threshold_active", default: 3, null: false
     t.integer "threshold_idle", default: 0, null: false
     t.integer "threshold_shutdown", default: 0, null: false
-    t.integer "cycle_threshold", default: 0, null: false
-    t.integer "algo", default: 0, null: false
     t.string "value_factor"
     t.string "power_factor"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cycle_threshold", default: 0, null: false
+    t.integer "algo", default: 0, null: false
     t.index ["hardware_item_id"], name: "index_devices_sensors_on_hardware_item_id"
     t.index ["sensor_type_id"], name: "index_devices_sensors_on_sensor_type_id"
   end

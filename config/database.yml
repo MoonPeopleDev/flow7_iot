@@ -18,8 +18,8 @@ development:
     migrations_paths: db/migrate_clickhouse
 
 
-test:
-  database: flow7_system_backend_test
+#test:
+#  database: flow7_system_backend_test
 
 
 production:

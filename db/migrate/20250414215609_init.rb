@@ -39,8 +39,8 @@ class Init < ActiveRecord::Migration[7.2]
       #t.integer :threshold_active, default: 3, null: false
       t.integer :threshold_idle, default: 0, null: false
       t.integer :threshold_shutdown, default: 0, null: false
-      t.integer :cycle_threshold, default: 0, null: false
-      t.integer :algo, default: 0, null: false
+      #t.integer :cycle_threshold, default: 0, null: false
+      #t.integer :algo, default: 0, null: false
       t.string :value_factor
       t.string :power_factor
       t.timestamps
