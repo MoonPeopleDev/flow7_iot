@@ -5,6 +5,8 @@ class Devices::SensorSerializer
              :threshold_active,
              :threshold_idle,
              :threshold_shutdown,
+             :cycle_threshold,
+             :algo,
              :value_factor,
              :power_factor
 
