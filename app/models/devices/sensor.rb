@@ -7,6 +7,8 @@ class Devices::Sensor < ApplicationRecord
   has_many :sensor_data_agg_10m, class_name: 'SensorData::Agg10m', foreign_key: :sensor_id
   has_many :sensor_data_agg_1h, class_name: 'SensorData::Agg1h', foreign_key: :sensor_id
   validates :name, presence: true
+  enum :algo, { base: 0, async: 1 }
+  validates :cycle_threshold, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 600 }
 
   validate do |item|
     if item.value_factor.present?

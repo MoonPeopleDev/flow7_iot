@@ -24,6 +24,8 @@ class Api::V1::Devices::SensorsController < Api::V1::BaseController
       :threshold_active,
       :threshold_idle,
       :threshold_shutdown,
+      :cycle_threshold,
+      :algo,
       :value_factor,
       :power_factor
     ]
