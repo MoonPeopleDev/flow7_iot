@@ -37,8 +37,10 @@ class Init < ActiveRecord::Migration[7.2]
       t.references :sensor_type, null: false, foreign_key: { to_table: :devices_sensor_types }, index: true
       t.references :hardware_item, null: false, foreign_key: { to_table: :devices_hardware_items }, index: true
       #t.integer :threshold_active, default: 3, null: false
-      t.integer :threshold_idle, default: 2, null: false
-      t.integer :threshold_shutdown, default: 1, null: false
+      t.integer :threshold_idle, default: 0, null: false
+      t.integer :threshold_shutdown, default: 0, null: false
+      t.integer :cycle_threshold, default: 0, null: false
+      t.integer :algo, default: 0, null: false
       t.string :value_factor
       t.string :power_factor
       t.timestamps

@@ -62,8 +62,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_14_215609) do
     t.bigint "sensor_type_id", null: false
     t.bigint "hardware_item_id", null: false
     t.integer "threshold_active", default: 3, null: false
-    t.integer "threshold_idle", default: 2, null: false
-    t.integer "threshold_shutdown", default: 1, null: false
+    t.integer "threshold_idle", default: 0, null: false
+    t.integer "threshold_shutdown", default: 0, null: false
+    t.integer "cycle_threshold", default: 0, null: false
+    t.integer "algo", default: 0, null: false
     t.string "value_factor"
     t.string "power_factor"
     t.datetime "created_at", null: false
