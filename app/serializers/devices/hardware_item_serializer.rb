@@ -6,8 +6,7 @@ class Devices::HardwareItemSerializer
              :last_online_at,
              :firmware_version,
              :uptime,
-             :receive_data,
-             :aes_key
+             :receive_data
 
   belongs_to :hardware_model, serializer: Devices::HardwareModelSerializer
 end
