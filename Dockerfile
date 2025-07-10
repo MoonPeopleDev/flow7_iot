@@ -66,4 +66,5 @@ USER 1000:1000
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+CMD ["tail -f /dev/null"]
+#CMD ["./bin/rails", "server"]
