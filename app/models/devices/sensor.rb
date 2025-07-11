@@ -2,10 +2,10 @@ class Devices::Sensor < ApplicationRecord
   belongs_to :sensor_type, class_name: 'Devices::SensorType', foreign_key: :sensor_type_id
   belongs_to :hardware_item, class_name: 'Devices::HardwareItem', foreign_key: :hardware_item_id
   has_many :sensor_data_raw, class_name: 'SensorData::Raw', foreign_key: :sensor_id
-  has_many :sensor_data_agg_6s, class_name: 'SensorData::Agg6s', foreign_key: :sensor_id
-  has_many :sensor_data_agg_1m, class_name: 'SensorData::Agg1m', foreign_key: :sensor_id
-  has_many :sensor_data_agg_10m, class_name: 'SensorData::Agg10m', foreign_key: :sensor_id
-  has_many :sensor_data_agg_1h, class_name: 'SensorData::Agg1h', foreign_key: :sensor_id
+  has_many :sensor_data_10s, class_name: 'SensorData::Rollup10s', foreign_key: :sensor_id
+  has_many :sensor_data_1m, class_name: 'SensorData::Rollup1m', foreign_key: :sensor_id
+  has_many :sensor_data_10m, class_name: 'SensorData::Rollup10m', foreign_key: :sensor_id
+  has_many :sensor_data_1h, class_name: 'SensorData::Rollup1h', foreign_key: :sensor_id
   validates :name, presence: true
   enum :algo, { base: 0, async_algo: 1 }
   validates :cycle_threshold, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 600 }
