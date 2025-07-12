@@ -73,11 +73,11 @@ install_clickhouse() {
 provision_postgres() {
   log "Creating PostgreSQL role & database..."
   sudo -u postgres psql -v ON_ERROR_STOP=1 <<-SQL
-    DO $$BEGIN
+    DO \$\$BEGIN
       IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '$CODEX_DB_USER') THEN
         CREATE ROLE $CODEX_DB_USER LOGIN PASSWORD '$CODEX_DB_PASS';
       END IF;
-    END$$;
+    END\$\$;
     CREATE DATABASE $CODEX_DB OWNER $CODEX_DB_USER TEMPLATE template0 ENCODING 'UTF8';
 SQL
 }
