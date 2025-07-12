@@ -1,6 +1,8 @@
 class Api::V1::Devices::SensorsController < Api::V1::BaseController
   include Jsonapi::Crud
 
+  before_action :set_resource, only: [:data]
+
   def resource_class
     Devices::Sensor
   end
@@ -11,6 +13,12 @@ class Api::V1::Devices::SensorsController < Api::V1::BaseController
 
   def destroy
 
+  end
+
+  def data
+    between = parse_times
+    data = SensorData.new(@resource, between, params[:capacity], params[:scalable_by])
+    render json: Devices::SensorDataSerializer.new(@resource, params: { data: data })
   end
 
   private
