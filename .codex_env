@@ -6,4 +6,4 @@ export POSTGRES_HOST=127.0.0.1
 export CLICKHOUSE_APP_DB=clickhouse_db
 export CLICKHOUSE_HOST=127.0.0.1
 export CLICKHOUSE_USER=clickhouse
-export CLICKHOUSE_PASSWORD=clickhouse
+export CLICKHOUSE_PASSWORD=''
