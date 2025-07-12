@@ -11,7 +11,9 @@ Rails.application.routes.draw do
         resources :hardware_items do
           put :reset_crypto, on: :member
         end
-        resources :sensors
+        resources :sensors do
+          get :data, on: :member
+        end
         resources :sensor_types
       end
       namespace :sensor_data do

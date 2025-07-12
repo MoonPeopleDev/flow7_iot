@@ -11,3 +11,4 @@ class ApplicationController < ActionController::Base
 end
 
 require_relative '../app/controllers/api/v1/base_controller'
+require_relative '../app/lib/sensor_data'
