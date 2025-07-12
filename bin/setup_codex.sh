@@ -40,25 +40,20 @@ fi
 log()  { printf "\033[1;34m==>\033[0m %s\n" "$*"; }
 err()  { printf "\033[1;31m[ERR]\033[0m %s\n" "$*"; }
 
-add_pg_repo() {
-  log "Adding PostgreSQL APT repository ($PG_VERSION)..."
-  apt-get install -y wget gnupg lsb-release >/dev/null
-  wget -qO - https://www.postgresql.org/media/keys/ACCC4CF8.asc | tee /etc/apt/trusted.gpg.d/postgres.asc >/dev/null
-  echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main $PG_VERSION" \
-      > /etc/apt/sources.list.d/pgdg.list
-}
 
 add_clickhouse_repo() {
   log "Adding ClickHouse APT repository ($CH_VERSION)..."
-  apt-get install -y ca-certificates dirmngr >/dev/null
-  apt-key adv --no-tty --keyserver keyserver.ubuntu.com --recv-keys 8919F6BD2B48D754 >/dev/null
-  echo "deb https://packages.clickhouse.com/deb $(lsb_release -cs) $CH_VERSION" \
-      > /etc/apt/sources.list.d/clickhouse.list
+  apt-get install -y apt-transport-https ca-certificates curl gnupg
+  curl -fsSL 'https://packages.clickhouse.com/rpm/lts/repodata/repomd.xml.key' | gpg --dearmor -o /usr/share/keyrings/clickhouse-keyring.gpg
+  ARCH=$(dpkg --print-architecture)
+  echo "deb [signed-by=/usr/share/keyrings/clickhouse-keyring.gpg arch=${ARCH}] https://packages.clickhouse.com/deb stable main" | tee /etc/apt/sources.list.d/clickhouse.list
+  apt-get update
+
 }
 
 install_postgres() {
   log "Installing PostgreSQL server..."
-  DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql-$PG_VERSION postgresql-contrib >/dev/null
+  DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql postgresql-contrib >/dev/null
   systemctl enable postgresql
 }
 
@@ -103,7 +98,6 @@ EOF
 
 #---------------------------------  MAIN  -------------------------------------
 log "Updating package index..." && apt-get update -y -qq >/dev/null
-add_pg_repo
 add_clickhouse_repo
 log "Refreshing package index with new repositories..." && apt-get update -y -qq >/dev/null
 install_postgres
