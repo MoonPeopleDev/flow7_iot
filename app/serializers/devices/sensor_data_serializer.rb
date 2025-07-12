@@ -1,6 +1,6 @@
 class Devices::SensorDataSerializer
   include JSONAPI::Serializer
-  set_type :sensor_received_data
+  set_type :sensor_data
 
   attributes :sensor_type, :data, :general
 
