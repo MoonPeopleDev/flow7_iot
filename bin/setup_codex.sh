@@ -62,7 +62,10 @@ install_clickhouse() {
   DEBIAN_FRONTEND=noninteractive apt-get install -y clickhouse-server clickhouse-client >/dev/null
   systemctl enable clickhouse-server
   # Pre‑seed: auto‑start with default settings
+  log "Clickhouse installed"
+
   yes | service clickhouse-server start >/dev/null
+  log "Clickhouse installed and running"
 }
 
 provision_postgres() {
