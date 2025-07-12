@@ -55,6 +55,7 @@ install_postgres() {
   log "Installing PostgreSQL server..."
   DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql postgresql-contrib >/dev/null
   systemctl enable postgresql
+  systemctl start postgresql
 }
 
 install_clickhouse() {
@@ -64,7 +65,7 @@ install_clickhouse() {
   # Pre‑seed: auto‑start with default settings
   log "Clickhouse installed"
 
-  service clickhouse-server start
+  systemctl start clickhouse-server
   log "Clickhouse installed and running"
 }
 
