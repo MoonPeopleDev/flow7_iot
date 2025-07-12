@@ -64,7 +64,7 @@ install_clickhouse() {
   # Pre‑seed: auto‑start with default settings
   log "Clickhouse installed"
 
-  yes | service clickhouse-server start >/dev/null
+  service clickhouse-server start
   log "Clickhouse installed and running"
 }
 
