@@ -93,7 +93,7 @@ add_clickhouse_repo
 log "Refreshing package index with new repositories..." && apt-get update -y -qq >/dev/null
 install_postgres
 install_clickhouse
-source .codex_env
+#source .codex_env
 #provision_postgres
 #provision_clickhouse
 
