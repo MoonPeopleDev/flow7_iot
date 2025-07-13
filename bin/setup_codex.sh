@@ -64,26 +64,26 @@ install_clickhouse() {
   log "Clickhouse installed and running"
 }
 
-provision_postgres() {
-  log "Creating PostgreSQL role & database..."
-  sudo -u postgres psql -v ON_ERROR_STOP=1 <<-SQL
-    DO \$\$BEGIN
-      IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '$POSTGRES_USER') THEN
-        CREATE ROLE $POSTGRES_USER LOGIN PASSWORD '$POSTGRES_PASSWORD';
-      END IF;
-    END\$\$;
-    CREATE DATABASE $POSTGRES_APP_DB OWNER $POSTGRES_USER TEMPLATE template0 ENCODING 'UTF8';
-SQL
-}
+#provision_postgres() {
+#  log "Creating PostgreSQL role & database..."
+#  sudo -u postgres psql -v ON_ERROR_STOP=1 <<-SQL
+#    DO \$\$BEGIN
+#      IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '$POSTGRES_USER') THEN
+#        CREATE ROLE $POSTGRES_USER LOGIN PASSWORD '$POSTGRES_PASSWORD';
+#      END IF;
+#    END\$\$;
+#    CREATE DATABASE $POSTGRES_APP_DB OWNER $POSTGRES_USER TEMPLATE template0 ENCODING 'UTF8';
+#SQL
+#}
 
-provision_clickhouse() {
-  log "Creating ClickHouse user & database..."
-  clickhouse-client --user=default --password "" --multiquery <<-SQL
-    CREATE DATABASE IF NOT EXISTS $CLICKHOUSE_APP_DB;
-    CREATE USER IF NOT EXISTS $CLICKHOUSE_USER IDENTIFIED WITH plaintext_password BY '$CLICKHOUSE_PASSWORD';
-    GRANT ALL ON $CLICKHOUSE_APP_DB.* TO $CLICKHOUSE_USER;
-SQL
-}
+#provision_clickhouse() {
+#  log "Creating ClickHouse user & database..."
+#  clickhouse-client --user=default --password "" --multiquery <<-SQL
+#    CREATE DATABASE IF NOT EXISTS $CLICKHOUSE_APP_DB;
+#    CREATE USER IF NOT EXISTS $CLICKHOUSE_USER IDENTIFIED WITH plaintext_password BY '$CLICKHOUSE_PASSWORD';
+#    GRANT ALL ON $CLICKHOUSE_APP_DB.* TO $CLICKHOUSE_USER;
+#SQL
+#}
 
 
 
@@ -94,8 +94,8 @@ log "Refreshing package index with new repositories..." && apt-get update -y -qq
 install_postgres
 install_clickhouse
 source .codex_env
-provision_postgres
-provision_clickhouse
+#provision_postgres
+#provision_clickhouse
 
 
 log "\nSUCCESS!  PostgreSQL and ClickHouse are ready for Codex."
