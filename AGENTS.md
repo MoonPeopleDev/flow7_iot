@@ -1,7 +1,11 @@
 # Repository Guidelines
 
-* Модели `app/models/sensor_data/base.rb` и все их потомки работают через базу данных **ClickHouse**.
-* В тестах допускается использование ClickHouse, данные должны реально сохраняться.
-* База ClickHouse установлена и настроена. Для её создания используйте `rake db:create:clickhouse`, миграции запускайте через `rake db:migrate:clickhouse`.
-* Для остальных моделей используется PostgreSQL. Создание базы: `rake db:create:primary`, миграции: `rake db:migrate:primary`.
-* Для написанного кода необходимо писать unit‑ и интеграционные тесты. Тесты должны покрывать все ветвления.
+## Purpose
+
+This application manages IoT hardware devices and collects sensor telemetry. It provides a REST API for device management and stores sensor data in ClickHouse, while other data lives in PostgreSQL.
+
+* Models in `app/models/sensor_data/base.rb` and all of their descendants operate via the **ClickHouse** database.
+* ClickHouse may be used in tests; data must actually be saved.
+* The ClickHouse database is installed and configured. Use `rake db:create:clickhouse` to create it and run migrations with `rake db:migrate:clickhouse`.
+* Other models use PostgreSQL. Create the database with `rake db:create:primary` and run migrations with `rake db:migrate:primary`.
+* All written code must have unit and integration tests. Tests should cover all branches.
