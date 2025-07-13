@@ -36,6 +36,17 @@ class ReceiverControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil @device.reload.aes_key
   end
 
+  def test_repeat_initialization_fails
+    key = SecureRandom.random_bytes(16)
+    @device.update!(aes_key: key)
+
+    post api_v1_sensor_data_receive_path, headers: { 'X-Device-ID' => @device.serial_number }, as: :text
+
+    assert_response :bad_request
+    assert_equal 'Nonce not found', response.body
+    assert_equal key, @device.reload.aes_key
+  end
+
   def test_encrypted_payload_is_saved
     key = SecureRandom.random_bytes(16)
     @device.update!(aes_key: key)
