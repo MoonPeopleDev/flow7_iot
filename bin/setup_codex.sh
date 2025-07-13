@@ -78,7 +78,7 @@ SQL
 
 provision_clickhouse() {
   log "Creating ClickHouse user & database..."
-  clickhouse-client --user=default --password="" --multiquery <<-SQL
+  clickhouse-client --user=default --password "" --multiquery <<-SQL
     CREATE DATABASE IF NOT EXISTS $CLICKHOUSE_APP_DB;
     CREATE USER IF NOT EXISTS $CLICKHOUSE_USER IDENTIFIED WITH plaintext_password BY '$CLICKHOUSE_PASSWORD';
     GRANT ALL ON $CLICKHOUSE_APP_DB.* TO $CLICKHOUSE_USER;

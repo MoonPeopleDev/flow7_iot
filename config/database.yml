@@ -17,6 +17,25 @@ development:
     timeout: 5000
     migrations_paths: db/migrate_clickhouse
 
+test:
+  primary:
+    adapter: postgresql
+    encoding: unicode
+    database: <%= ENV.fetch("POSTGRES_APP_DB") %>
+    username: <%= ENV.fetch("POSTGRES_USER") %>
+    password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    host: <%= ENV.fetch("POSTGRES_HOST") %>
+  clickhouse:
+    adapter: clickhouse
+    database: <%= ENV.fetch("CLICKHOUSE_APP_DB") %>
+    host: <%= ENV.fetch("CLICKHOUSE_HOST") %>
+    port: 8123
+    username: <%= ENV.fetch("CLICKHOUSE_USER") %>
+    password: <%= ENV.fetch("CLICKHOUSE_PASSWORD") { '' }%>
+    timeout: 5000
+    migrations_paths: db/migrate_clickhouse
+
 
 #test:
 #  database: flow7_system_backend_test
