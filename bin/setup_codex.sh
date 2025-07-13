@@ -78,7 +78,7 @@ SQL
 
 provision_clickhouse() {
   log "Creating ClickHouse user & database..."
-  clickhouse-client --multiquery <<-SQL
+  clickhouse-client --user=default --password="" --multiquery <<-SQL
     CREATE DATABASE IF NOT EXISTS $CLICKHOUSE_APP_DB;
     CREATE USER IF NOT EXISTS $CLICKHOUSE_USER IDENTIFIED WITH plaintext_password BY '$CLICKHOUSE_PASSWORD';
     GRANT ALL ON $CLICKHOUSE_APP_DB.* TO $CLICKHOUSE_USER;
@@ -93,7 +93,6 @@ add_clickhouse_repo
 log "Refreshing package index with new repositories..." && apt-get update -y -qq >/dev/null
 install_postgres
 install_clickhouse
-source .codex_env
 provision_postgres
 provision_clickhouse
 
