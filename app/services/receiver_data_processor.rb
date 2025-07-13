@@ -31,8 +31,8 @@ class ReceiverDataProcessor
   def parse_json(raw)
     return raw if raw.is_a?(Hash)
     JSON.parse(raw, symbolize_names: true)
-  # rescue JSON::ParserError
-  #   nil
+  rescue JSON::ParserError
+    nil
   end
 
   def update_device_info(data)
@@ -92,7 +92,7 @@ class ReceiverDataProcessor
 
         if key == :rfid_hold
           entry[:string_sensor_value] = item[:rfid]
-          entry[:bool_sensor_value] = value
+          entry[:boolean_sensor_value] = value
         end
 
         results << entry

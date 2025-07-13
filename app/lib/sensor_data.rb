@@ -22,7 +22,10 @@ class SensorData
     if @sensor_type.scalable
       data = case capacity
               when 'raw'
-                Devices::SensorValue.chart_data(@sensor.id, @between, 'max(value) as value, null as min_value, null as max_value')
+                @sensor.sensor_data_raw
+                      .where(at: @between)
+                      .select('at, numeric_sensor_value as value, numeric_sensor_value as min_value, numeric_sensor_value as max_value')
+                      .order(:at)
               when '10s'
                 SensorData::Rollup10s.chart_data(@sensor.id, @between, select)
               when '1m'
@@ -86,6 +89,8 @@ class SensorData
       'sumMerge(sum_value_state) as value, null as min_value, null as max_value'
     when 'diff'
       'maxMerge(max_value_state) - minMerge(min_value_state) as value, minMerge(min_value_state) as min_value, maxMerge(max_value_state) as max_value'
+    when 'avg_no_zeros'
+      'avgMergeIf(avg_value_state, max_value_state != 0) as value, null as min_value, null as max_value'
     end
   end
 

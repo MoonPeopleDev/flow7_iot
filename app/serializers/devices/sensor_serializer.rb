@@ -11,5 +11,5 @@ class Devices::SensorSerializer
              :power_factor
 
   belongs_to :sensor_type
-  belongs_to :hardware_item_id
+  belongs_to :hardware_item
 end
