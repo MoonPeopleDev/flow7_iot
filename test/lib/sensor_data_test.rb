@@ -1,10 +1,11 @@
 require_relative '../test_helper'
+require "ostruct"
 
 class SensorDataTest < Minitest::Test
   DummyRelation = Struct.new(:records) do
     def select(*) = self
     def where(*) = self
-    def order(*) = self
+    def order(*) = records
     def group(*) = self
     def count = records.size
     def first = records.first
