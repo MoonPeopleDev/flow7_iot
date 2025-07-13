@@ -80,17 +80,17 @@ class SensorData
   def select
     case scalable_by
     when 'avg'
-      'avgMerge(avg_value_state) as value, null as min_value, null as max_value'
+      'avgMerge(avg_state) as value, null as min_value, null as max_value'
     when 'max'
-      'maxMerge(max_value_state) as value, null as min_value, null as max_value '
+      'maxMerge(max_state) as value, null as min_value, null as max_value'
     when 'min'
-      'minMerge(min_value_state) as value, null as min_value, null as max_value'
+      'minMerge(min_state) as value, null as min_value, null as max_value'
     when 'sum'
-      'sumMerge(sum_value_state) as value, null as min_value, null as max_value'
+      'sumMerge(sum_state) as value, null as min_value, null as max_value'
     when 'diff'
-      'maxMerge(max_value_state) - minMerge(min_value_state) as value, minMerge(min_value_state) as min_value, maxMerge(max_value_state) as max_value'
+      'maxMerge(max_state) - minMerge(min_state) as value, minMerge(min_state) as min_value, maxMerge(max_state) as max_value'
     when 'avg_no_zeros'
-      'avgMergeIf(avg_value_state, max_value_state != 0) as value, null as min_value, null as max_value'
+      'avgMerge(avg_state) as value, null as min_value, null as max_value'
     end
   end
 

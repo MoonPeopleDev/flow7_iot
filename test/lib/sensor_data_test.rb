@@ -1,3 +1,4 @@
+require_relative '../../config/environment'
 require_relative '../test_helper'
 require "ostruct"
 
