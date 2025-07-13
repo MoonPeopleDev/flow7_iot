@@ -49,6 +49,7 @@ install_postgres() {
   log "Installing PostgreSQL server..."
   DEBIAN_FRONTEND=noninteractive apt-get install -y postgresql postgresql-contrib >/dev/null
   service postgresql start
+  sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'password';"
   #systemctl enable postgresql
   #systemctl start postgresql
 }
