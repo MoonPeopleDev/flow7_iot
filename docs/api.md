@@ -49,6 +49,24 @@
 - `POST /devices/sensors` – создание датчика (по умолчанию датчики создаются автоматически вместе с устройством).
 - `PUT /devices/sensors/:id` – обновление датчика.
 - `DELETE /devices/sensors/:id` – удаление датчика.
+- `GET /devices/sensors/:id/data` – данные датчика за указанный период. Обязательные параметры запроса: `from` и `to` (в формате ISO 8601). Дополнительные параметры: `capacity` (`raw`, `10s`, `1m`, `10m`, `1h`) и `scalable_by` (`avg`, `max`, `min`, `sum`, `diff`, `avg_no_zeros`). В ответе возвращается объект `sensor_data` с массивом `data` и разделом `general`.
+
+Формат ответа:
+```json
+{
+  "data": {
+    "id": "1",
+    "type": "sensor_data",
+    "attributes": {
+      "sensor_type": { "name": "Current", "data_key_name": "i" },
+      "data": [ { "at": 1710000000000, "v": 12 } ],
+      "general": { "min": 12, "max": 12, "avg": 12 }
+    }
+  }
+}
+```
+Поле `data` содержит массив точек. Для обычных датчиков каждая точка имеет поля `at` (в миллисекундах) и `v` (значение). Для датчиков `rfid` используется поле `rfid` вместо `v`, а для режима `rfid_hold` также присутствует `v` (`in`/`out`) и `personnel_id`.
+Секция `general` зависит от значения `general_data_method` типа датчика: `min_max_average` и `min_max_diff` возвращают `{ min, max, avg }`, `sum` – `{ sum }`, `work_idle_times` – `{ work_time, idle_time }`, `rfid_hold_times` – набор ключей RFID с накопленным временем, в остальных случаях `null`.
 
 ## Приём телеметрии (`/sensor_data/receiver`)
 
