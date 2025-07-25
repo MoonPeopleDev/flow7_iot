@@ -29,7 +29,7 @@ class Api::V1::Devices::SensorsController < Api::V1::BaseController
       :description,
       :sensor_type_id,
       :hardware_item_id,
-      :threshold_active,
+      #:threshold_active,
       :threshold_idle,
       :threshold_shutdown,
       :cycle_threshold,

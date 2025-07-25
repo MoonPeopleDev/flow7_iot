@@ -2,7 +2,7 @@ class Devices::SensorSerializer
   include JSONAPI::Serializer
   attributes :name,
              :description,
-             :threshold_active,
+             #:threshold_active,
              :threshold_idle,
              :threshold_shutdown,
              :cycle_threshold,
