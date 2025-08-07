@@ -12,6 +12,7 @@
 !/.env*.erb
 !/.env.test
 !/.env.development
+!/.env.example
 
 # Ignore all logfiles and tempfiles.
 /log/*
